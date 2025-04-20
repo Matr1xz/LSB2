@@ -9,7 +9,7 @@ def encode_lsb(image_path, output_path, message):
     img = Image.open(image_path)
     pixels = img.load()
 
-    binary_message = ''.join(f"{ord(c):08b}" for c in message)
+    binary_message = ''.join("{:08b}".format(ord(c)) for c in message)
     message_len = len(binary_message)
 
     width, height = img.size
@@ -27,7 +27,7 @@ def encode_lsb(image_path, output_path, message):
             break
 
     img.save(output_path)
-    print(f"da giau thong diep vao anh: {output_path}")
+    print("da giau thong diep vao anh: {}".format(output_path))
 
 
 def decode_lsb(image_path):
@@ -56,8 +56,9 @@ if __name__ == "__main__":
     message = input("nhap msv: ")
 
     input_image = input("nhap duong dan anh dau vao:")
-    output_image = f'{input_image.split(".")[0]}_encoded.{input_image.split(".")[1]}'
+    # Thay f-string bằng .format()
+    output_image = '{}_encoded.{}'.format(input_image.split(".")[0], input_image.split(".")[1])
 
     encode_lsb(input_image, output_image, message)
     extracted = decode_lsb(output_image)
-    print("thong diep da giai:", extracted)
+    print("thong diep da giai: {}".format(extracted))
