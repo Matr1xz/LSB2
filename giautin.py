@@ -1,14 +1,11 @@
 from PIL import Image
 
-# Mã hóa chuỗi vào ảnh bằng LSB
 def encode_lsb(image_path, output_path, message):
     if len(message) > 10:
-        raise ValueError("Chỉ được nhập tối đa 10 ký tự")
+        raise ValueError("toi da 10 ky tu")
 
-    # Thêm ký tự kết thúc để biết khi nào kết thúc message
     message += chr(0)
 
-    # Đọc ảnh
     img = Image.open(image_path)
     pixels = img.load()
 
@@ -30,10 +27,9 @@ def encode_lsb(image_path, output_path, message):
             break
 
     img.save(output_path)
-    print(f"Đã giấu thông điệp vào ảnh: {output_path}")
+    print(f"da giau thong diep vao anh: {output_path}")
 
 
-# Giải mã chuỗi từ ảnh
 def decode_lsb(image_path):
     img = Image.open(image_path)
     pixels = img.load()
@@ -46,7 +42,6 @@ def decode_lsb(image_path):
             r, g, b = pixels[x, y]
             binary_data += str(r & 1)
 
-    # Chuyển thành ký tự
     chars = [binary_data[i:i+8] for i in range(0, len(binary_data), 8)]
     message = ''
     for byte in chars:
@@ -57,15 +52,12 @@ def decode_lsb(image_path):
     return message
 
 
-# Ví dụ sử dụng:
 if __name__ == "__main__":
-    # Nhập chuỗi muốn giấu
-    message = input("Nhập mã sinh viên (tối đa 10 ký tự): ")
+    message = input("nhap msv: ")
 
-    # Dùng ảnh PNG để thử nghiệm
-    input_image = input("Nhập đường dẫn ảnh đầu vào:")
+    input_image = input("nhap duong dan anh dau vao:")
     output_image = f'{input_image.split(".")[0]}_encoded.{input_image.split(".")[1]}'
 
     encode_lsb(input_image, output_image, message)
     extracted = decode_lsb(output_image)
-    print("Thông điệp đã giải mã:", extracted)
+    print("thong diep da giai:", extracted)
