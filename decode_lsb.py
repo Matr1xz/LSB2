@@ -23,4 +23,4 @@ def decode_lsb(image_path):
 
 image_path = input("nhap duong dan anh dau vao:")
 message = decode_lsb(image_path)
-print("thong diep da giau trong anh {}: {}".format(image_path,message))
+print("thong diep trong anh {}: {}".format(image_path.split(".")[1],message))
